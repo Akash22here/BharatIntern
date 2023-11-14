@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+      /* Reset default margin and padding */
+body, h1, p, label, select, input, button {
+    margin: 0;
+    padding: 0;
+}
+
+/* Set a background color for the body */
+body {
+    background-color: #f0f0f0;
+    font-family: Arial, sans-serif;
+}
+
+/* Style the container */
+.container {
+    background-color: #fff;
+    max-width: 400px;
+    margin: 100px auto;
+    padding: 30px 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Style the header */
+h1 {
+    font-size: 24px;
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+/* Style labels */
+label {
+    display: block;
+    margin-bottom: 15px;
+    color: #a0a0a0;
+}
+
+/* Style input containers */
+.degree{
+    display: inline-block;
+    margin-bottom: 10px;
+    width: calc(50% - 15px); /* Two input containers in a row with a small gap */
+}
+
+.type {
+    display: inline-block;
+    margin-bottom: 10px;
+    margin-left:25px;
+    width: calc(50% - 15px); /* Two input containers in a row with a small gap */
+}
+
+.result {
+    display: inline-block;
+    margin-bottom: 10px;
+    width: calc(100% - 20px); /* Full width for the result field */
+}
+
+/* Style input fields */
+input[type="text"], select {
+    padding: 10px;
+    margin-bottom: 20px;
+    border: none;
+    border-bottom: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: border-color 0.3s;
+    width: 100%; /* Make the inputs fill their container */
+}
+
+input[type="text"]:focus, select:focus {
+    border-color: #007bff;
+}
+
+/* Style the convert button */
+button {
+    display: block;
+    width: 100%;
+    padding: 15px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Disable the button when needed */
+button:disabled {
+    background-color: #ccc;
+    cursor: not-allowed;
+}
+
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Temperature Converter</h1>
+        <div class="degree">
+            <label for="temperatureInput">Degrees:</label>
+            <input type="text" id="temperatureInput" placeholder="Enter temperature" />
+        </div>
+        <div class="type">
+            <label for="unitSelect">Type:</label>
+            <select id="unitSelect">
+                <option value="celsius">Celsius</option>
+                <option value="fahrenheit">Fahrenheit</option>
+                <option value="kelvin">Kelvin</option>
+            </select>
+        </div>
+        <div class="result">
+            <label for="resultArea">Result:</label>
+            <input type="text" id="resultArea" disabled/>
+        </div>
+        <br>
+        <button id="convertButton">Convert</button>
+    </div>
+
+    <script>
+         document.getElementById('convertButton').addEventListener('click', function() {
+            const inputTemperature = parseFloat(document.getElementById('temperatureInput').value);
+            const selectedUnit = document.getElementById('unitSelect').value;
+            const resultArea = document.getElementById('resultArea');
+
+            if (isNaN(inputTemperature)) {
+                alert('Please enter a valid temperature.');
+                return;
+            }
+
+            let convertedTemperature;
+
+            if (selectedUnit === 'celsius') {
+                convertedTemperature = (inputTemperature - 32) * 5/9;
+                resultArea.value = convertedTemperature.toFixed(2) + ' °C';
+            } else if (selectedUnit === 'fahrenheit') {
+                convertedTemperature = (inputTemperature * 9/5) + 32;
+                resultArea.value = convertedTemperature.toFixed(2) + ' °F';
+            } else if (selectedUnit === 'kelvin') {
+                convertedTemperature = inputTemperature + 273.15;
+                resultArea.value = convertedTemperature.toFixed(2) + ' K';
+            }
+        });
+    </script>
+</body>
+</html>
